@@ -1,0 +1,9 @@
+encrypt:
+  key-store:
+    location: classpath:/mykey.jks
+    alias: mykey
+    password: changeit
+    secret: changeit
+
+  #encrypt:
+#  key: yaoqiuchen
