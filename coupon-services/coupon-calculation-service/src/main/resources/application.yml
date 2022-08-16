@@ -6,6 +6,15 @@ server:
 spring:
   application:
     name: coupon-calculator-service
+  sleuth:
+    sampler:
+      probability: 1
+  zipkin:
+    sender:
+      type: rabbit
+    rabbitmq:
+      addresses: 124.220.32.86:5672
+      queue: zipkin
 
 eureka:
   client:
