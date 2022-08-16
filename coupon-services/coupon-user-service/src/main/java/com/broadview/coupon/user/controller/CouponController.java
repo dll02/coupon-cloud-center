@@ -9,6 +9,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +21,14 @@ import java.util.List;
 @RestController
 @RequestMapping("coupon-user")
 @EnableHystrix // 多级降级
+@RefreshScope //监听属性变更广播事件
 public class CouponController {
 
     @Autowired
     private CouponUserService couponUserService;
+
+    @Value("${request-coupon-disabled:false}")
+    private boolean disableRequestingCoupon;
 
     @GetMapping("findCoupon")
     public List<CouponInfo> findCoupon(@RequestParam("userId") Long userId,
@@ -40,6 +46,10 @@ public class CouponController {
                 @HystrixProperty(name ="execution.isolation.thread.timeoutInMilliseconds", value = "2000")
             })
     public Coupon requestCoupon(@Valid @RequestBody RequestCoupon request)throws InterruptedException  {
+        if(disableRequestingCoupon){
+            log.info("disable requesting coupon");
+            return null;
+        }
         log.info("request Coupon normal");
         return couponUserService.requestCoupon(request);
     }

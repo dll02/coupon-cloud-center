@@ -32,7 +32,9 @@ spring:
     # 数据源
     url: jdbc:mysql://124.220.32.86:3306/broadview_coupon_db?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC
     username: root
-    password: 123456
+    password: ${database.password}
+    # ${database.password}
+    #123456
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 连接池
@@ -75,10 +77,10 @@ broadview:
 #  calculatserivce:
 #    url: "/calculator/checkout"
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://peer1:10000/eureka/,http://peer2:10001/eureka/
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://peer1:10000/eureka/,http://peer2:10001/eureka/
 
 # ribbon被兼容在Feign
 #ribbon:
@@ -139,22 +141,22 @@ hystrix:
         enabled: true # 开启降级（默认处于开启状态）
       circuitBreaker:
         enabled: true #开启/禁用熔断机制（默认开启）
-        requestVolumeThreshold: 4 # 断路器请求阈值，至少调用次数
+        requestVolumeThreshold: 10 # 断路器请求阈值，至少调用次数
         sleepWindowInMilliseconds: 10000 # 断路器等待窗口 10s
         errorThresholdPercentage: 50 # 断路器错误百分比（触发条件）
         # 在一个统计窗口内，只有当请求书超过X，且错误比例达到50%，触发断路
       metrics:
         rollingStats:
           timeInMilliseconds: 20000 #滑动窗口持续时间
-          numBuckets: 10 #滑动窗口中bucket数量
-          rollingPercentile:
-            # 指定方法响应时间的统计参数和百分位信息
-            enabled: true #是否执行时间百分比信息
-            timeInMilliseconds: 60000 #执行时间统计周期
-            numBuckets: 6 #执行时间统计内的bucket数量
-            bucketSize: 1000 #每个bucket最多统计的记录条数
-          healthSnapshot:
-            intervalInMilliseconds: 500 #健康快照信息采集间隔
+#          numBuckets: 10 #滑动窗口中bucket数量
+#          rollingPercentile:
+#            # 指定方法响应时间的统计参数和百分位信息
+#            enabled: true #是否执行时间百分比信息
+#            timeInMilliseconds: 60000 #执行时间统计周期
+#            numBuckets: 6 #执行时间统计内的bucket数量
+#            bucketSize: 1000 #每个bucket最多统计的记录条数
+#          healthSnapshot:
+#            intervalInMilliseconds: 500 #健康快照信息采集间隔
       execution:
         timeout:
           #是否允许超时
@@ -168,17 +170,18 @@ hystrix:
             maxConcurrentRequests: 10 #最大并发请求数
 
 # actuator集成Hystrix Dashboard
-management:
-  endpoint:
-    health:
-      # 总是显示各个组件的actuator信息
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        # 暴露所有endpoint
-        include: '*'
-  security:
-    enabled: false
+# 通过配置中心读取
+#management:
+#  endpoint:
+#    health:
+#      # 总是显示各个组件的actuator信息
+#      show-details: always
+#  endpoints:
+#    web:
+#      exposure:
+#        # 暴露所有endpoint
+#        include: '*'
+#  security:
+#    enabled: false
 
 # request-coupon-disabled:false
