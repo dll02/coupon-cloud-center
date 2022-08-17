@@ -11,12 +11,12 @@ eureka:
 spring:
   application:
     name: coupon-template-service
-  kafka:
-    bootstrap-servers: 124.220.32.86:9092
-    consumer:
-      enable-auto-commit: true
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#  kafka:
+#    bootstrap-servers: 124.220.32.86:9092
+#    consumer:
+#      enable-auto-commit: true
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   rabbitmq:
     host: 124.220.32.86
     port: 5672

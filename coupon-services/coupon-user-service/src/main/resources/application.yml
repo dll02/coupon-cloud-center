@@ -11,13 +11,13 @@ spring:
     port: 5672
     username: guest
     password: guest
-  kafka:
-    bootstrap-servers: 124.220.32.86:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      retries: 3
-      acks: 1
+#  kafka:
+#    bootstrap-servers: 124.220.32.86:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      retries: 3
+#      acks: 1
   jpa:
     show-sql: true
     hibernate:

@@ -16,3 +16,5 @@ eureka:
     # 将自己注册到peer1
     service-url:
       defaultZone: http://peer1:10000/eureka
+  server:
+    peer-node-read-timeout-ms: 1000

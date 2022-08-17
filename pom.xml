@@ -23,6 +23,7 @@
         <module>middleware/hystrix-dashboard</module>
         <module>middleware/config-server</module>
         <module>middleware/gateway</module>
+        <module>middleware/zipkin</module>
     </modules>
     <packaging>pom</packaging>
 

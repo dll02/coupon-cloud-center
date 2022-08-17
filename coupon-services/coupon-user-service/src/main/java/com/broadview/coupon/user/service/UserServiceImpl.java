@@ -47,8 +47,7 @@ public class UserServiceImpl implements CouponUserService {
     @Autowired
     private RabbitMqProducer producer;
 
-    @Autowired
-    private KafkaSender kafkaSender;
+
 
 //    @Autowired
 //    private RestTemplate restTemplate;
@@ -141,7 +140,7 @@ public class UserServiceImpl implements CouponUserService {
                 .status(CouponStatus.AVAILABLE)
                 .build();
         couponDao.save(coupon);
-        kafkaSender.send(coupon.getId().toString());
+        //kafkaSender.send(coupon.getId().toString());
         return coupon;
     }
 
