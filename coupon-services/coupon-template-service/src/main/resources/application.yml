@@ -51,15 +51,15 @@ spring:
     open-in-view: false
   cache:
     type: redis
-  sleuth:
-    sampler:
-      probability: 1
-  zipkin:
-    sender:
-      type: rabbit
-    rabbitmq:
-      addresses: 124.220.32.86:5672
-      queue: zipkin
+#  sleuth:
+#    sampler:
+#      probability: 1
+#  zipkin:
+#    sender:
+#      type: rabbit
+#    rabbitmq:
+#      addresses: 124.220.32.86:5672
+#      queue: zipkin
 
   redis:
     host: 124.220.32.86

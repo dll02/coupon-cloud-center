@@ -51,15 +51,15 @@ spring:
     port: 6379
     # 连接超时时间
     timeout: 10000
-  sleuth:
-    sampler:
-      probability: 1
-  zipkin:
-    sender:
-      type: rabbit
-    rabbitmq:
-      addresses: 124.220.32.86:5672
-      queue: zipkin
+#  sleuth:
+#    sampler:
+#      probability: 1
+#  zipkin:
+#    sender:
+#      type: rabbit
+#    rabbitmq:
+#      addresses: 124.220.32.86:5672
+#      queue: zipkin
 #  redis:
 #    database: 0
 #    host: 127.0.0.1
