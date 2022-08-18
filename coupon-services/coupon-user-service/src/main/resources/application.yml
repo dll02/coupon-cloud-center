@@ -4,6 +4,9 @@ server:
 #    context-path: /coupon-user
 
 spring:
+  # feignhystrixbuilder和seatafeign组件有冲突
+  main:
+    allow-bean-definition-overriding: true # 允许bean重载
   application:
     name: coupon-user-service
   rabbitmq:
@@ -60,6 +63,33 @@ spring:
 #    rabbitmq:
 #      addresses: 124.220.32.86:5672
 #      queue: zipkin
+  cloud:
+    stream:
+      bindings:
+        coupon-consumer:
+          destination: request-coupon-topic
+          # 消费组，同组内只能被消费一次
+          group: coupon-user-serv-group
+          # 本机重试，次数>1的时候才重试
+          # 如果设置了requeue操作，则需要把max-attempts设置为1
+          consumer:
+            max-attempts: 1 # 重试次数，非冥等不允许重试
+        coupon-producer:
+          destination: request-coupon-topic
+      rabbit:
+        bindings:
+          coupon-producer:
+            producer: # 允许延迟消费
+              delayed-exchange: true
+          coupon-consumer:
+            consumer: # 允许异常消息推入死道
+              auto-bind-dlq: true
+                requeue-rejected: true
+    alibaba:
+      seata:
+        tx-service-group: coupon-group # 声明事务组
+  #              requeue-rejected: true
+
 #  redis:
 #    database: 0
 #    host: 127.0.0.1
@@ -194,3 +224,15 @@ hystrix:
 #    enabled: false
 
 # request-coupon-disabled:false
+
+seata:
+  application-id: coupon-calculation-service
+  registry:
+    type: eureka
+    eureka:
+      application: seata-server # 服务发现seata
+      service-url: http://localhost:10000/eureka/
+      weight: 1
+  service:
+    vgroup-mapping:
+      my-group: seata-server

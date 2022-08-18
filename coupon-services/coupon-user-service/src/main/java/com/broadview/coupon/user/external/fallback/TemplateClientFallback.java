@@ -24,4 +24,9 @@ public class TemplateClientFallback implements TemplateClient {
         log.info("fallback logic, ids={}",id);
         return null;
     }
+
+    @Override
+    public void inactiveCoupon(Long id) {
+        log.info("fallback logic, id={}", id);
+    }
 }

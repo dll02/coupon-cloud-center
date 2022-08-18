@@ -13,7 +13,8 @@ import java.util.stream.Stream;
 public enum CouponStatus {
 
     AVAILABLE("未使用", 1),
-    USED("已用", 2);
+    USED("已用", 2),
+    DISABLED("作废", 3);
 
     private String desc;
     private Integer code;

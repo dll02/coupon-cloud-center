@@ -30,4 +30,6 @@ public interface CouponUserService {
     PlaceOrder settlement(PlaceOrder info);
 
     PlaceOrder placeOrder(PlaceOrder order);
+
+    int inactiveCouponTemplate(Long templateId);
 }

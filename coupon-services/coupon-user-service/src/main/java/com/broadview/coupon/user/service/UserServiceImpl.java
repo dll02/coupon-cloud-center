@@ -25,6 +25,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,6 @@ public class UserServiceImpl implements CouponUserService {
 
     @Autowired
     private RabbitMqProducer producer;
-
 
 
 //    @Autowired
@@ -209,6 +209,13 @@ public class UserServiceImpl implements CouponUserService {
 
         producer.produceMsg(order.getCouponId().toString());
         return checkoutInfo;
+    }
+
+    @Override
+    @Transactional
+    public int inactiveCouponTemplate(Long templateId) {
+        templateClient.inactiveCoupon(templateId);
+        return couponDao.makeCouponUnavailable(templateId, CouponStatus.DISABLED);
     }
 
     /**
